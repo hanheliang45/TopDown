@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 09c8da86d5a284bb4a59afea9a3a91f6
+guid: 3fc307d4c68ce413b9ffc46d866f434e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -36,15 +36,15 @@ ModelImporter:
       name: Rifile-Firing.Idle
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 0
-      lastFrame: 2.9
+      firstFrame: 2.8
+      lastFrame: 31
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 0

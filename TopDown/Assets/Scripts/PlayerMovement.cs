@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Shoot()
     {
-        Debug.Log("Shoot!");
+        _animator.SetTrigger("Fire");
     }
 
     void Update()
@@ -59,10 +59,10 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         ApplyAim();
 
-        ApplyAnimator();
+        ApplyMoveAnimator();
     }
 
-    private void ApplyAnimator()
+    private void ApplyMoveAnimator()
     {
         float xVelocity = Vector3.Dot(_moveDirection.normalized, transform.right);
         float zVelocity = Vector3.Dot(_moveDirection.normalized, transform.forward);
