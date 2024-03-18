@@ -12,15 +12,23 @@ public class PlayerWeaponVisual : MonoBehaviour
     [SerializeField] private Transform shotgun;
     [SerializeField] private Transform rifle;
 
-    private Dictionary<GunType, Transform> gunDic;
+    [SerializeField] private Transform leftHandIK;
+    
+    private Dictionary<GunType, Transform> _gunDic;
+    private GunType _selectedGunType;
     void Awake()
     {
-        gunDic = new Dictionary<GunType, Transform>();
-        gunDic.Add(GunType.PISTOL, pistol);
-        gunDic.Add(GunType.REVOLVER, revolver);
-        gunDic.Add(GunType.AUTORIFLE, autoRifle);
-        gunDic.Add(GunType.SHOTGUN, shotgun);
-        gunDic.Add(GunType.RIFLE, rifle);
+        _gunDic = new Dictionary<GunType, Transform>();
+        _gunDic.Add(GunType.PISTOL, pistol);
+        _gunDic.Add(GunType.REVOLVER, revolver);
+        _gunDic.Add(GunType.AUTORIFLE, autoRifle);
+        _gunDic.Add(GunType.SHOTGUN, shotgun);
+        _gunDic.Add(GunType.RIFLE, rifle);
+    }
+
+    private void Start()
+    {
+        SwitchOffGuns(GunType.PISTOL);
     }
 
     private void Update()
@@ -49,10 +57,16 @@ public class PlayerWeaponVisual : MonoBehaviour
 
     private void SwitchOffGuns(GunType gunType)
     {
-        foreach (var entry in gunDic)
+        _selectedGunType = gunType;
+        
+        foreach (var entry in _gunDic)
         {
             entry.Value.gameObject.SetActive(entry.Key == gunType);   
         }
+
+        Transform leftHandIKTarget = _gunDic[gunType].transform.Find("IK_target_transform").transform;
+        leftHandIK.localPosition = leftHandIKTarget.localPosition;
+        leftHandIK.localRotation = leftHandIKTarget.localRotation;
     }
 
     public enum GunType
