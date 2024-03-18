@@ -29,17 +29,18 @@ public class PlayerMovement : MonoBehaviour
     
     void Awake()
     {
-        _controller = new PlayerController();
-
         _characterController = this.GetComponent<CharacterController>();
         _animator = this.GetComponentInChildren<Animator>();
-            
+    }
+
+    void Start()
+    {
+        _controller = GetComponent<PlayerCore>().PC;
         AssignInput();
     }
-    
+
     private void AssignInput()
     {
-        _controller.Character.Fire.performed += context => Shoot();
         _controller.Character.Move.performed += context => _moveInput = context.ReadValue<Vector2>();
         _controller.Character.Move.canceled += context => _moveInput = Vector2.zero;
         _controller.Character.Aim.performed += context => _aimInput = context.ReadValue<Vector2>();
@@ -47,18 +48,13 @@ public class PlayerMovement : MonoBehaviour
         _controller.Character.Run.performed += context => _isRunning = true;
         _controller.Character.Run.canceled += context => _isRunning = false;
     }
-
-    private void Shoot()
-    {
-        _animator.SetTrigger("Fire");
-    }
+    
 
     void Update()
     {
         ApplyMovement();
         ApplyGravity();
         ApplyAim();
-
         ApplyMoveAnimator();
     }
 
@@ -83,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
             transform.forward = _lookingDirection;
 
-            aimObject.position = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
+            aimObject.position = new Vector3(hitInfo.point.x, this.transform.position.y + 1.0f, hitInfo.point.z);
         }
     }
 
@@ -105,14 +101,5 @@ public class PlayerMovement : MonoBehaviour
         _moveDirection = new Vector3(_moveInput.x, _moveDirection.y, _moveInput.y);
         _characterController.Move(_moveDirection * Time.deltaTime * (_isRunning ? runSpeed : walkSpeed));
     }
-
-    private void OnEnable()
-    {
-        _controller.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _controller.Disable();
-    }
+    
 }
