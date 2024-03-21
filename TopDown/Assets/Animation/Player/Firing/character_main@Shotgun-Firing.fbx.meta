@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b305db2455b7f4f3aa1910d89c9c9abd
+guid: e9f3aee0fc6eb437b9ba08cb91dd1bd4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -36,8 +36,8 @@ ModelImporter:
       name: Shotgun-Firing.Idle
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 0
-      lastFrame: 2.2
+      firstFrame: 4
+      lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

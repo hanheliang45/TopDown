@@ -18,8 +18,14 @@ public class PlayerWeaponController : MonoBehaviour
         _controller = GetComponent<PlayerCore>().PC;
         
         _controller.Character.Fire.performed += context => Shoot();
+        //_controller.Character.Reload.performed += context => Reload();
     }
-    
+
+    private void Reload()
+    {
+     
+    }
+
     private void Shoot()
     {
         _animator.SetTrigger("Fire");

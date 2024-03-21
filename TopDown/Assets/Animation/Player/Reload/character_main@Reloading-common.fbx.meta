@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b305db2455b7f4f3aa1910d89c9c9abd
+guid: 236ec9d6e15a84f57b5146087d419da6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Shotgun-Firing.Idle
+      name: Reloading-common
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 2.2
+      lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

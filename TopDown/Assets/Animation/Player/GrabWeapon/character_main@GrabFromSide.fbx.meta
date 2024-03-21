@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b305db2455b7f4f3aa1910d89c9c9abd
+guid: 1e7ff68c618ed44b6b481a8dd18d61a4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Shotgun-Firing.Idle
+      name: GrabFromSide
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 0
-      lastFrame: 2.2
+      firstFrame: 15
+      lastFrame: 55
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
