@@ -47,6 +47,7 @@ public class RigController : MonoBehaviour
     {
         Debug.Log("Prioritize");
         _shouldIncreaseWeight = true;
+        PlayerCore.Instance.SetBusy(false);
     }
 
     public void DeprioritizeLeftHandIK()

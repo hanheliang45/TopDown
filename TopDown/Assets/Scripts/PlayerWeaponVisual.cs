@@ -21,8 +21,8 @@ public class PlayerWeaponVisual : MonoBehaviour
     private Dictionary<GunType, Transform> _gunDic;
     private Dictionary<GunType, int> _gunAnimationLayerDic;
     private GunType _selectedGunType;
-
-    void Awake()
+    
+    private bool _busy; void Awake()
     {
         _gunDic = new Dictionary<GunType, Transform>();
         _gunDic.Add(GunType.PISTOL, pistol);
@@ -45,40 +45,50 @@ public class PlayerWeaponVisual : MonoBehaviour
         SwitchOffGuns(GunType.PISTOL);
     }
 
+    public void CancelBusy() => _busy = false;
+
     private void Update()
     {
+        if (PlayerCore.Instance.GetBusy()) return;
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            PlayerCore.Instance.SetBusy(true);
             SwitchOffGuns(GunType.PISTOL);
             SwitchOffGunsAnimation(GrabType.SIDE);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            PlayerCore.Instance.SetBusy(true);
             SwitchOffGuns(GunType.REVOLVER);
             SwitchOffGunsAnimation(GrabType.SIDE);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            PlayerCore.Instance.SetBusy(true);
             SwitchOffGuns(GunType.AUTORIFLE);
             SwitchOffGunsAnimation(GrabType.BEHIND);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            PlayerCore.Instance.SetBusy(true);
             SwitchOffGuns(GunType.SHOTGUN);
             SwitchOffGunsAnimation(GrabType.SIDE);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
+            PlayerCore.Instance.SetBusy(true);
             SwitchOffGuns(GunType.RIFLE);
             SwitchOffGunsAnimation(GrabType.BEHIND);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            PlayerCore.Instance.SetBusy(true);
             ReloadAnimation();
         }
     }
