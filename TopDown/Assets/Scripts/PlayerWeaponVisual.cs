@@ -22,7 +22,7 @@ public class PlayerWeaponVisual : MonoBehaviour
     private Dictionary<GunType, int> _gunAnimationLayerDic;
     private GunType _selectedGunType;
     
-    private bool _busy; void Awake()
+    private void Awake()
     {
         _gunDic = new Dictionary<GunType, Transform>();
         _gunDic.Add(GunType.PISTOL, pistol);
@@ -44,8 +44,6 @@ public class PlayerWeaponVisual : MonoBehaviour
     {
         SwitchOffGuns(GunType.PISTOL);
     }
-
-    public void CancelBusy() => _busy = false;
 
     private void Update()
     {

@@ -7,6 +7,10 @@ public class PlayerWeaponController : MonoBehaviour
 
     private PlayerController _controller;
     private Animator _animator;
+
+    [SerializeField] private Transform bulletPrefab;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private Transform gunFirePoint;
     
     void Awake()
     {
@@ -18,7 +22,6 @@ public class PlayerWeaponController : MonoBehaviour
         _controller = GetComponent<PlayerCore>().PC;
         
         _controller.Character.Fire.performed += context => Shoot();
-        //_controller.Character.Reload.performed += context => Reload();
     }
 
     private void Reload()
@@ -28,6 +31,19 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Shoot()
     {
+        if (PlayerCore.Instance.GetBusy())
+        {
+            return;
+        }
+
+        Transform newBullet = Instantiate(bulletPrefab, gunFirePoint.position, Quaternion.LookRotation(gunFirePoint.forward));
+
+        newBullet.GetComponent<Rigidbody>().velocity = gunFirePoint.forward * bulletSpeed;
+        
+        Destroy(newBullet.gameObject, 10);
+        
         _animator.SetTrigger("Fire");
     }
+
+    public Transform GetGunPoint() => this.gunFirePoint;
 }
