@@ -55,7 +55,9 @@ public class PlayerAim : MonoBehaviour
         Target target = hit.transform.GetComponent<Target>();
         if (target != null)
         {
-            aimObject.position = hit.transform.position;
+            Renderer targetRenderer = target.GetComponent<Renderer>();
+            aimObject.position = targetRenderer == null ? hit.transform.position
+                    : targetRenderer.bounds.center;
         }
         else
         {
