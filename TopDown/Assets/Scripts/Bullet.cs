@@ -5,15 +5,23 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Rigidbody _rigidbody;
+    [SerializeField] private Transform bulletImpactPref;
+    
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        // _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        creatBulletImpact(other);
+        
         Destroy(gameObject);
+    }
+
+    private void creatBulletImpact(Collision other)
+    {
+        Transform impact = Instantiate(bulletImpactPref, other.contacts[0].point, 
+            Quaternion.LookRotation(other.contacts[0].normal));
+        Destroy(impact.gameObject, 1f);
     }
 }

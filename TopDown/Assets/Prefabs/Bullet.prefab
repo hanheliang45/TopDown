@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d7b343886be54135abb86fb45a7e499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletImpactPref: {fileID: 4742426662083332417, guid: 8a40c9e79a4ca46a4a767265b8254fef,
+    type: 3}
 --- !u!65 &7194008615243605072
 BoxCollider:
   m_ObjectHideFlags: 0
