@@ -18,80 +18,41 @@ public class PlayerWeaponVisual : MonoBehaviour
     [SerializeField] private RigController rigController;
 
 
-    private Dictionary<GunType, Transform> _gunDic;
-    private Dictionary<GunType, int> _gunAnimationLayerDic;
-    private GunType _selectedGunType;
+    // private Dictionary<WeaponType, Transform> _gunDic;
+    // private Dictionary<WeaponType, int> _gunAnimationLayerDic;
+
+    private Dictionary<WeaponType, WeaponModel> _gun2ModelDic;
+    // private WeaponType _selectedGunType;
     
     private void Awake()
     {
-        _gunDic = new Dictionary<GunType, Transform>();
-        _gunDic.Add(GunType.PISTOL, pistol);
-        _gunDic.Add(GunType.REVOLVER, revolver);
-        _gunDic.Add(GunType.AUTORIFLE, autoRifle);
-        _gunDic.Add(GunType.SHOTGUN, shotgun);
-        _gunDic.Add(GunType.RIFLE, rifle);
+        _gun2ModelDic = new Dictionary<WeaponType, WeaponModel>();
 
-        _gunAnimationLayerDic = new Dictionary<GunType, int>();
-        _gunAnimationLayerDic.Add(GunType.PISTOL, 1);
-        _gunAnimationLayerDic.Add(GunType.REVOLVER, 1);
-        _gunAnimationLayerDic.Add(GunType.AUTORIFLE, 1);
-        _gunAnimationLayerDic.Add(GunType.SHOTGUN, 2);
-        _gunAnimationLayerDic.Add(GunType.RIFLE, 3);
-
+        WeaponModel[] weaponModels = this.GetComponentsInChildren<WeaponModel>(true);
+        foreach (WeaponModel model in weaponModels)
+        {
+            _gun2ModelDic.Add(model.GetWeaponType(), model);
+        }
     }
 
     private void Start()
     {
-        SwitchOffGuns(GunType.PISTOL);
+        // SwitchOffGuns(WeaponType.PISTOL);
     }
 
     private void Update()
     {
-        if (PlayerCore.Instance.GetBusy()) return;
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PlayerCore.Instance.SetBusy(true);
-            SwitchOffGuns(GunType.PISTOL);
-            SwitchOffGunsAnimation(GrabType.SIDE);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlayerCore.Instance.SetBusy(true);
-            SwitchOffGuns(GunType.REVOLVER);
-            SwitchOffGunsAnimation(GrabType.SIDE);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayerCore.Instance.SetBusy(true);
-            SwitchOffGuns(GunType.AUTORIFLE);
-            SwitchOffGunsAnimation(GrabType.BEHIND);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayerCore.Instance.SetBusy(true);
-            SwitchOffGuns(GunType.SHOTGUN);
-            SwitchOffGunsAnimation(GrabType.SIDE);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            PlayerCore.Instance.SetBusy(true);
-            SwitchOffGuns(GunType.RIFLE);
-            SwitchOffGunsAnimation(GrabType.BEHIND);
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            PlayerCore.Instance.SetBusy(true);
-            ReloadAnimation();
-        }
+        // if (PlayerCore.Instance.GetBusy()) return;
+        //
+        //
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {
+        //     PlayerCore.Instance.SetBusy(true);
+        //     ReloadAnimation();
+        // }
     }
 
-    private void ReloadAnimation()
+    public void ReloadAnimation()
     {
         _animator.SetTrigger("Reload");
 
@@ -108,41 +69,27 @@ public class PlayerWeaponVisual : MonoBehaviour
         _animator.SetLayerWeight(layer, 1);
     }
 
-    private void SwitchOffGuns(GunType gunType)
+    public void SwitchOffGuns(WeaponType weaponType)
     {
-        _selectedGunType = gunType;
+        // _selectedGunType = weaponType;
 
-        foreach (var entry in _gunDic)
+        foreach (var entry in _gun2ModelDic)
         {
-            entry.Value.gameObject.SetActive(entry.Key == gunType);
+            entry.Value.gameObject.SetActive(entry.Key == weaponType);
         }
 
-        Transform leftHandIKTransform = _gunDic[gunType].transform.Find("IK_target_transform").transform;
+        Transform leftHandIKTransform = _gun2ModelDic[weaponType].transform.Find("IK_target_transform").transform;
         leftHandIKTarget.localPosition = leftHandIKTransform.localPosition;
         leftHandIKTarget.localRotation = leftHandIKTransform.localRotation;
 
-        SwitchAnimationLayer(_gunAnimationLayerDic[gunType]);
+        SwitchAnimationLayer(_gun2ModelDic[weaponType].GetAnimationLayer());
     }
 
-    private void SwitchOffGunsAnimation(GrabType grabType)
+    public void SwitchOffGunsAnimation(WeaponType weaponType)
     {
         _animator.SetTrigger("GrabWeapon");
-        _animator.SetFloat("GrabWeaponType", (float)grabType);
+        _animator.SetFloat("GrabWeaponType", (float)_gun2ModelDic[weaponType].GetGrabType());
         rigController.DeprioritizeLeftHandIK();
     }
-
-    public enum GunType
-    {
-        PISTOL,
-        REVOLVER,
-        AUTORIFLE,
-        SHOTGUN,
-        RIFLE,
-    }
-
-    public enum GrabType
-    {
-        SIDE,
-        BEHIND
-    }
+    
 }
