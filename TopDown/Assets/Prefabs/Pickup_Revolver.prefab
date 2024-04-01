@@ -70,9 +70,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon:
     weaponType: 1
-    ammo: 15
+    ammo: 1000
     ammoMax: 50
     magazineSize: 15
+    fireRate: 5
+    shootType: 1
+    minSpread: 0
+    maxSpread: 10
+    increaseSpread: 0.3
+    spreadCoolDown: 1
 --- !u!1 &7096052540812698917
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,26 +35,10 @@ public class PlayerWeaponVisual : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        // SwitchOffGuns(WeaponType.PISTOL);
-    }
-
-    private void Update()
-    {
-        // if (PlayerCore.Instance.GetBusy()) return;
-        //
-        //
-        // if (Input.GetKeyDown(KeyCode.R))
-        // {
-        //     PlayerCore.Instance.SetBusy(true);
-        //     ReloadAnimation();
-        // }
-    }
-
-    public void ReloadAnimation()
+    public void ReloadAnimation(WeaponType weaponType)
     {
         _animator.SetTrigger("Reload");
+        _animator.SetFloat("ReloadSpeed", _gun2ModelDic[weaponType].GetReloadSpeed());
 
         rigController.Deprioritize();
     }
@@ -69,7 +53,7 @@ public class PlayerWeaponVisual : MonoBehaviour
         _animator.SetLayerWeight(layer, 1);
     }
 
-    public void SwitchOffGuns(WeaponType weaponType)
+    public void SwitchWeaponModel(WeaponType weaponType)
     {
         // _selectedGunType = weaponType;
 
@@ -85,7 +69,7 @@ public class PlayerWeaponVisual : MonoBehaviour
         SwitchAnimationLayer(_gun2ModelDic[weaponType].GetAnimationLayer());
     }
 
-    public void SwitchOffGunsAnimation(WeaponType weaponType)
+    public void GrabGunAnimation(WeaponType weaponType)
     {
         _animator.SetTrigger("GrabWeapon");
         _animator.SetFloat("GrabWeaponType", (float)_gun2ModelDic[weaponType].GetGrabType());

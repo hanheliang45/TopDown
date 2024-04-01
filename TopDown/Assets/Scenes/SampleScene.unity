@@ -1239,6 +1239,8 @@ MonoBehaviour:
   weaponType: 2
   animationLayer: 1
   grabType: 1
+  reloadSpeed: 1
+  fireRate: 1
 --- !u!1 &425147326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,6 +1441,8 @@ MonoBehaviour:
   weaponType: 1
   animationLayer: 1
   grabType: 0
+  reloadSpeed: 2
+  fireRate: 1.5
 --- !u!1 &641194484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1494,8 @@ MonoBehaviour:
   weaponType: 4
   animationLayer: 3
   grabType: 1
+  reloadSpeed: 0.5
+  fireRate: 0.5
 --- !u!1 &693588336
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,6 +2036,8 @@ MonoBehaviour:
   weaponType: 3
   animationLayer: 2
   grabType: 0
+  reloadSpeed: 3
+  fireRate: 2
 --- !u!1 &761872179
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,6 +2619,8 @@ MonoBehaviour:
   weaponType: 0
   animationLayer: 1
   grabType: 0
+  reloadSpeed: 3
+  fireRate: 1
 --- !u!1 &1019441016
 GameObject:
   m_ObjectHideFlags: 0

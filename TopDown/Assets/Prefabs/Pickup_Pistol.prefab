@@ -236,6 +236,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon:
     weaponType: 0
-    ammo: 10
+    ammo: 1000
     ammoMax: 30
     magazineSize: 10
+    fireRate: 2
+    shootType: 0
+    minSpread: 0
+    maxSpread: 10
+    increaseSpread: 0.3
+    spreadCoolDown: 1

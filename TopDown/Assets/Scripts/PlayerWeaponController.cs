@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PlayerWeaponController : MonoBehaviour
     private PlayerController _controller;
     private PlayerWeaponVisual _weaponVisual;
     private Animator _animator;
+    private bool isShootPressed;
 
     [SerializeField] private Transform bulletPrefab;
     [SerializeField] private float bulletSpeed;
@@ -16,21 +18,38 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private List<Weapon> weaponSlots;
     private Weapon currentWeapon;
     
-    void Awake()
+    private void Awake()
     {
         _animator = this.GetComponentInChildren<Animator>();
         _weaponVisual = this.GetComponent<PlayerWeaponVisual>();
     }
 
-    void Start()
+    private void Start()
     {
         _controller = GetComponent<PlayerCore>().PC;
+
+        _controller.Character.Fire.performed += context => isShootPressed = true;
+        _controller.Character.Fire.canceled += context => isShootPressed = false;
         
-        _controller.Character.Fire.performed += context => Shoot();
         _controller.Character.Equip1.performed += context => EquipWeapon(0);
         _controller.Character.Equip2.performed += context => EquipWeapon(1);
+        
         _controller.Character.Drop.performed += context => DropCurrentWeapon();
         _controller.Character.Reload.performed += context => Reload();
+    }
+
+    private void Update()
+    {
+        if (isShootPressed)
+        {
+            if (Shoot())
+            {
+                if (currentWeapon.shootType == ShootType.SINGLE)
+                {
+                    isShootPressed = false;
+                }
+            }
+        }
     }
 
     public void DropCurrentWeapon()
@@ -63,8 +82,8 @@ public class PlayerWeaponController : MonoBehaviour
 
         currentWeapon = weaponSlots[slotIndex];
         
-        _weaponVisual.SwitchOffGuns(currentWeapon.weaponType);
-        _weaponVisual.SwitchOffGunsAnimation(currentWeapon.weaponType);
+        _weaponVisual.SwitchWeaponModel(currentWeapon.weaponType);
+        _weaponVisual.GrabGunAnimation(currentWeapon.weaponType);
     }
 
     public bool Pickup(Weapon weapon)
@@ -98,35 +117,39 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeapon.ammo += toBeAdd;
         currentWeapon.ammoMax -= toBeAdd;
 
-        _weaponVisual.ReloadAnimation();
+        _weaponVisual.ReloadAnimation(currentWeapon.weaponType);
     }
 
-    private void Shoot()
+    private bool Shoot()
     {
-        if (PlayerCore.Instance.GetBusy()) return;
+        if (PlayerCore.Instance.GetBusy()) return false;
 
         if (currentWeapon == null)
         {
-            return;
+            return false;
         }
 
-        if (currentWeapon.ammo == 0)
+        if (!this.currentWeapon.HasBullet()
+            || !this.currentWeapon.IsCoolDown())
         {
-            return;
+            return false;
         }
-
-        currentWeapon.ammo--;
         
         ShootBullet();
+
+        return true;
     }
 
     private void ShootBullet()
     {
         Transform newBullet = Instantiate(bulletPrefab, gunFirePoint.position, Quaternion.LookRotation(gunFirePoint.forward));
 
-        newBullet.GetComponent<Rigidbody>().velocity = gunFirePoint.forward * bulletSpeed;
+        newBullet.GetComponent<Rigidbody>().velocity = 
+            currentWeapon.ApplySpread(gunFirePoint.forward) * bulletSpeed;
         
         Destroy(newBullet.gameObject, 10);
+
+        this.currentWeapon.Shoot();
         
         _animator.SetTrigger("Fire");
     }
