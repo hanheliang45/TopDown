@@ -9,6 +9,9 @@ public class PickupManager : MonoBehaviour
 
     [SerializeField] private Transform pickupPistolPrefab;
     [SerializeField] private Transform pickupRevolverPrefab;
+    [SerializeField] private Transform pickupRiflePrefab;
+    [SerializeField] private Transform pickupShotgunPrefab;
+    [SerializeField] private Transform pickupSnipperPrefab;
     
     private Dictionary<WeaponType, Transform> pickupWeaponDic;
     
@@ -22,6 +25,9 @@ public class PickupManager : MonoBehaviour
         pickupWeaponDic = new Dictionary<WeaponType, Transform>();
         pickupWeaponDic.Add(WeaponType.PISTOL, pickupPistolPrefab);
         pickupWeaponDic.Add(WeaponType.REVOLVER, pickupRevolverPrefab);
+        pickupWeaponDic.Add(WeaponType.RIFLE, pickupRiflePrefab);
+        pickupWeaponDic.Add(WeaponType.SHOTGUN, pickupShotgunPrefab);
+        pickupWeaponDic.Add(WeaponType.SNIPPER, pickupSnipperPrefab);
     }
 
     public Transform GetWeaponPrefab(WeaponType wt) => pickupWeaponDic[wt];

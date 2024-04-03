@@ -13,6 +13,7 @@ public class PlayerCore : MonoBehaviour
     private PlayerAim _playerAim;
     private PlayerMovement _playerMovement;
     private PlayerWeaponController _weaponController;
+    private PlayerInteraction _playerInteraction;
     
     void Awake()
     {
@@ -22,6 +23,7 @@ public class PlayerCore : MonoBehaviour
         _playerAim = GetComponent<PlayerAim>();
         _playerMovement = GetComponent<PlayerMovement>();
         _weaponController = GetComponent<PlayerWeaponController>();
+        _playerInteraction = GetComponent<PlayerInteraction>();
     }
 
     public void SetBusy(bool busyOrNot)
@@ -31,8 +33,8 @@ public class PlayerCore : MonoBehaviour
 
     public PlayerAim GetPlayerAim() => _playerAim;
     public PlayerMovement GetPlayerMovement() => _playerMovement;
-
     public PlayerWeaponController GetWeaponController() => _weaponController;
+    public PlayerInteraction GetPlayerInteraction() => _playerInteraction;
 
     public bool GetBusy() => _busy;
 

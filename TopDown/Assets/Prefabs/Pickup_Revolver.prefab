@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1126530267229859209}
-  - component: {fileID: 7204803779946646297}
-  - component: {fileID: 7082624619409537589}
   m_Layer: 0
   m_Name: Pickup_Revolver
   m_TagString: Untagged
@@ -35,50 +33,6 @@ Transform:
   - {fileID: 4509019810072590374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7204803779946646297
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704699203720657609}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.3
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7082624619409537589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704699203720657609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8683b5628f04b1e82bcecf817c866e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon:
-    weaponType: 1
-    ammo: 1000
-    ammoMax: 50
-    magazineSize: 15
-    fireRate: 5
-    shootType: 1
-    minSpread: 0
-    maxSpread: 10
-    increaseSpread: 0.3
-    spreadCoolDown: 1
 --- !u!1 &7096052540812698917
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +44,8 @@ GameObject:
   - component: {fileID: 5518640072058894493}
   - component: {fileID: 2447230697269807436}
   - component: {fileID: 1690565682361340004}
+  - component: {fileID: 7139156486276414736}
+  - component: {fileID: 1511135579752405977}
   m_Layer: 0
   m_Name: weap_revolver
   m_TagString: Untagged
@@ -162,6 +118,52 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7139156486276414736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7096052540812698917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8683b5628f04b1e82bcecf817c866e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 0}
+  highlightMaterial: {fileID: 2100000, guid: 5db550e0c1c6c43c2a27b6ffb33b3695, type: 2}
+  weapon:
+    weaponType: 1
+    ammo: 1000
+    ammoMax: 50
+    magazineSize: 15
+    fireRate: 5
+    shootType: 1
+    minSpread: 0
+    maxSpread: 10
+    increaseSpread: 0.3
+    spreadCoolDown: 1
+--- !u!135 &1511135579752405977
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7096052540812698917}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7314441122833940519
 GameObject:
   m_ObjectHideFlags: 0

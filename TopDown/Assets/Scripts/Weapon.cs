@@ -20,6 +20,11 @@ public class Weapon
     private float lastShootTime;
     private float currentSpread;
 
+    public void Equip()
+    {
+        this.lastShootTime = 0;
+    }
+
     public Vector3 ApplySpread(Vector3 originalDirection)
     {
         if (Time.time > lastShootTime + spreadCoolDown)

@@ -7,11 +7,11 @@ using UnityEngine.Serialization;
 
 public class PlayerWeaponVisual : MonoBehaviour
 {
-    [SerializeField] private Transform pistol;
-    [SerializeField] private Transform revolver;
-    [SerializeField] private Transform autoRifle;
-    [SerializeField] private Transform shotgun;
-    [SerializeField] private Transform rifle;
+    // [SerializeField] private Transform pistol;
+    // [SerializeField] private Transform revolver;
+    // [SerializeField] private Transform autoRifle;
+    // [SerializeField] private Transform shotgun;
+    // [SerializeField] private Transform rifle;
 
     [SerializeField] private Transform leftHandIKTarget;
     [SerializeField] private Animator _animator;
@@ -33,6 +33,11 @@ public class PlayerWeaponVisual : MonoBehaviour
         {
             _gun2ModelDic.Add(model.GetWeaponType(), model);
         }
+    }
+
+    public Transform GetFirePoint(WeaponType weaponType)
+    {
+        return _gun2ModelDic[weaponType].transform.Find("FirePoint");
     }
 
     public void ReloadAnimation(WeaponType weaponType)

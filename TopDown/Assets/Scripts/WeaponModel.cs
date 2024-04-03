@@ -10,6 +10,7 @@ public class WeaponModel : MonoBehaviour
     [SerializeField] private GrabType grabType;
     [Range(0.5f, 3)]
     [SerializeField] private float reloadSpeed;
+    
 
     public WeaponType GetWeaponType() => weaponType;
     public int GetAnimationLayer() => animationLayer;

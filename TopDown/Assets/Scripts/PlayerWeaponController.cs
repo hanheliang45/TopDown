@@ -13,8 +13,8 @@ public class PlayerWeaponController : MonoBehaviour
 
     [SerializeField] private Transform bulletPrefab;
     [SerializeField] private float bulletSpeed;
-    [SerializeField] private Transform gunFirePoint;
-
+    // [SerializeField] private Transform gunFirePoint;
+    [SerializeField] private Transform firstPickupGun;
     [SerializeField] private List<Weapon> weaponSlots;
     private Weapon currentWeapon;
     
@@ -22,20 +22,26 @@ public class PlayerWeaponController : MonoBehaviour
     {
         _animator = this.GetComponentInChildren<Animator>();
         _weaponVisual = this.GetComponent<PlayerWeaponVisual>();
+        
     }
 
     private void Start()
     {
         _controller = GetComponent<PlayerCore>().PC;
-
+        
         _controller.Character.Fire.performed += context => isShootPressed = true;
         _controller.Character.Fire.canceled += context => isShootPressed = false;
         
         _controller.Character.Equip1.performed += context => EquipWeapon(0);
         _controller.Character.Equip2.performed += context => EquipWeapon(1);
+
+        _controller.Character.Interact.performed += context => Pickup();
         
         _controller.Character.Drop.performed += context => DropCurrentWeapon();
         _controller.Character.Reload.performed += context => Reload();
+
+        AddWeapon(firstPickupGun.GetComponentInChildren<PickupWeapon>().GetWeapon());
+        EquipWeapon(0);
     }
 
     private void Update()
@@ -67,7 +73,8 @@ public class PlayerWeaponController : MonoBehaviour
         );
 
         currentWeapon = weaponSlots[0];
-        // todo grab weapon animation
+
+        EquipWeapon(0);
     }
 
     public void EquipWeapon(int slotIndex)
@@ -81,12 +88,18 @@ public class PlayerWeaponController : MonoBehaviour
         PlayerCore.Instance.SetBusy(true);
 
         currentWeapon = weaponSlots[slotIndex];
+        currentWeapon.Equip();
         
         _weaponVisual.SwitchWeaponModel(currentWeapon.weaponType);
         _weaponVisual.GrabGunAnimation(currentWeapon.weaponType);
     }
 
-    public bool Pickup(Weapon weapon)
+    public void Pickup()
+    {
+        PlayerCore.Instance.GetPlayerInteraction().Interact();
+    }
+
+    public bool AddWeapon(Weapon weapon)
     {
         if (weaponSlots.Count < 2)
         {
@@ -142,6 +155,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void ShootBullet()
     {
+        Transform gunFirePoint = this._weaponVisual.GetFirePoint(currentWeapon.weaponType);
         Transform newBullet = Instantiate(bulletPrefab, gunFirePoint.position, Quaternion.LookRotation(gunFirePoint.forward));
 
         newBullet.GetComponent<Rigidbody>().velocity = 
@@ -154,5 +168,5 @@ public class PlayerWeaponController : MonoBehaviour
         _animator.SetTrigger("Fire");
     }
 
-    public Transform GetGunPoint() => this.gunFirePoint;
+    public Transform GetGunPoint() => this._weaponVisual.GetFirePoint(currentWeapon.weaponType);
 }

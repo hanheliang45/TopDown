@@ -3,20 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupWeapon : MonoBehaviour
+public class PickupWeapon : Interactable
 {
     [SerializeField] private Weapon weapon;
+
+    private PlayerWeaponController pwc;
     
-    private void OnTriggerEnter(Collider other)
+    public override void Interact(PlayerInteraction interaction)
     {
-        PlayerWeaponController pwc = other.GetComponent<PlayerWeaponController>();
-        if (pwc != null)
+        if (pwc.AddWeapon(weapon))
         {
-            if (pwc.Pickup(weapon))
-            {
-                Destroy(this.gameObject);
-            }
+            Destroy(this.transform.parent.gameObject);
+            
+            interaction.RemoveInteractable(this);
         }
-        
     }
+    
+    
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+        
+        if (pwc == null)
+        {
+            pwc = other.GetComponent<PlayerWeaponController>();
+        }
+    }
+
+    public Weapon GetWeapon() => weapon;
+
+    //
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     PlayerInteraction interaction = other.GetComponent<PlayerInteraction>();
+    //     if (interaction != null)
+    //     {
+    //         interaction.RemoveInteractable(this);
+    //     }
+    // }
 }
